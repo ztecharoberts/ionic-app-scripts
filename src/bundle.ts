@@ -4,6 +4,7 @@ import * as Constants from './util/constants';
 import { rollup, rollupUpdate, getRollupConfig, getOutputDest as rollupGetOutputDest } from './rollup';
 import { webpack, webpackUpdate, getWebpackConfig, getOutputDest as webpackGetOutputDest } from './webpack';
 
+import { closure } from './closure-bundle';
 
 export function bundle(context: BuildContext, configFile?: string) {
   return bundleWorker(context, configFile)
@@ -14,11 +15,13 @@ export function bundle(context: BuildContext, configFile?: string) {
 
 
 function bundleWorker(context: BuildContext, configFile: string) {
-  if (context.bundler === Constants.BUNDLER_ROLLUP) {
+  /*if (context.bundler === Constants.BUNDLER_ROLLUP) {
     return rollup(context, configFile);
   }
 
   return webpack(context, configFile);
+  */
+  return closure(context, configFile);
 }
 
 
