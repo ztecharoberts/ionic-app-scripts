@@ -142,6 +142,7 @@ describe('config', () => {
       expect(fakeConfig[Constants.ENV_EXPERIMENTAL_PURGE_DECORATORS]).toBeFalsy();
       expect(fakeConfig[Constants.ENV_USE_EXPERIMENTAL_CLOSURE]).toBeFalsy();
       expect(fakeConfig[Constants.ENV_USE_EXPERIMENTAL_BABILI]).toBeFalsy();
+      expect(fakeConfig[Constants.ENV_EXPERIMENTAL_DEEP_IMPORTS]).toBeFalsy();
       expect(fakeConfig[Constants.ENV_BUILD_TO_ES5]).toEqual('true');
       expect(context.bundler).toEqual('webpack');
     });

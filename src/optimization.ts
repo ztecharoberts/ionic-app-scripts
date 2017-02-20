@@ -7,6 +7,7 @@ import { getBooleanPropertyValue, webpackStatsToDependencyMap, printDependencyMa
 import { BuildContext, TaskInfo } from './util/interfaces';
 import { runWebpackFullBuild, WebpackConfig } from './webpack';
 import { purgeDecorators } from './optimization/decorators';
+import { convertNodeModulesToDeepImports } from './optimization/deep-imports';
 import { getAppModuleNgFactoryPath, calculateUnusedComponents, purgeUnusedImportsAndExportsFromIndex, purgeComponentNgFactoryImportAndUsage, purgeProviderControllerImportAndUsage, purgeProviderClassNameFromIonicModuleForRoot } from './optimization/treeshake';
 
 export function optimization(context: BuildContext, configFile: string) {
@@ -34,6 +35,11 @@ function optimizationWorker(context: BuildContext, configFile: string) {
     return deleteOptimizationJsFile(join(webpackConfig.output.path, webpackConfig.output.filename));
   }).then(() => {
     return doOptimizations(context, dependencyMap);
+  }).then((optimizedDependencyMap: Map<string, Set<string>>) => {
+    if (getBooleanPropertyValue(Constants.ENV_EXPERIMENTAL_DEEP_IMPORTS)) {
+      convertNodeModulesToDeepImports(optimizedDependencyMap, context.fileCache, context.nodeModulesDir);
+    }
+    return optimizedDependencyMap;
   });
 }
 

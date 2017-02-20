@@ -246,6 +246,10 @@ export function generateContext(context?: BuildContext): BuildContext {
   setProcessEnvVar(Constants.ENV_EXPERIMENTAL_PURGE_DECORATORS, experimentalPurgeDecorators);
   Logger.debug(`experimentalPurgeDecorators set to ${experimentalPurgeDecorators}`);
 
+  const experimentalDeepImports = getConfigValue(context, '--experimentalDeepImports', null, Constants.ENV_EXPERIMENTAL_DEEP_IMPORTS, Constants.ENV_EXPERIMENTAL_DEEP_IMPORTS.toLowerCase(), null);
+  setProcessEnvVar(Constants.ENV_EXPERIMENTAL_DEEP_IMPORTS, experimentalDeepImports);
+  Logger.debug(`experimentalDeepImports set to ${experimentalDeepImports}`);
+
   const useExperimentalClosure = getConfigValue(context, '--useExperimentalClosure', null, Constants.ENV_USE_EXPERIMENTAL_CLOSURE, Constants.ENV_USE_EXPERIMENTAL_CLOSURE.toLowerCase(), null);
   setProcessEnvVar(Constants.ENV_USE_EXPERIMENTAL_CLOSURE, useExperimentalClosure);
   Logger.debug(`useExperimentalClosure set to ${useExperimentalClosure}`);
