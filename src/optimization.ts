@@ -1,9 +1,9 @@
-import { extname } from 'path';
+import { extname, join } from 'path';
 import { Logger } from './logger/logger';
 import { fillConfigDefaults, getUserConfigFile, replacePathVars } from './util/config';
 import * as Constants from './util/constants';
 import { BuildError } from './util/errors';
-import { getBooleanPropertyValue, webpackStatsToDependencyMap, printDependencyMap } from './util/helpers';
+import { getBooleanPropertyValue, webpackStatsToDependencyMap, printDependencyMap, unlinkAsync } from './util/helpers';
 import { BuildContext, TaskInfo } from './util/interfaces';
 import { runWebpackFullBuild, WebpackConfig } from './webpack';
 import { purgeDecorators } from './optimization/decorators';
@@ -23,15 +23,22 @@ export function optimization(context: BuildContext, configFile: string) {
 
 function optimizationWorker(context: BuildContext, configFile: string) {
   const webpackConfig = getConfig(context, configFile);
+  let dependencyMap: Map<string, Set<string>> = null;
   return runWebpackFullBuild(webpackConfig).then((stats: any) => {
-    const dependencyMap = webpackStatsToDependencyMap(context, stats);
+    dependencyMap = webpackStatsToDependencyMap(context, stats);
     if (getBooleanPropertyValue(Constants.ENV_PRINT_ORIGINAL_DEPENDENCY_TREE)) {
       Logger.debug('Original Dependency Map Start');
       printDependencyMap(dependencyMap);
       Logger.debug('Original Dependency Map End');
     }
+    return deleteOptimizationJsFile(join(webpackConfig.output.path, webpackConfig.output.filename));
+  }).then(() => {
     return doOptimizations(context, dependencyMap);
   });
+}
+
+export function deleteOptimizationJsFile(fileToDelete: string) {
+  return unlinkAsync(fileToDelete);
 }
 
 export function doOptimizations(context: BuildContext, dependencyMap: Map<string, Set<string>>) {
@@ -67,6 +74,9 @@ function purgeUnusedImports(context: BuildContext, purgeDependencyMap: Map<strin
   // for now, restrict this to components in the ionic-angular/index.js file
   const indexFilePath = process.env[Constants.ENV_VAR_IONIC_ANGULAR_ENTRY_POINT];
   const file = context.fileCache.get(indexFilePath);
+  if (!file) {
+    throw new Error(`Could not find ionic-angular index file ${indexFilePath}`);
+  }
   const modulesToPurge: string[] = [];
   purgeDependencyMap.forEach((set: Set<string>, moduleToPurge: string) => {
     modulesToPurge.push(moduleToPurge);

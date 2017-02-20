@@ -1,3 +1,42 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/driftyco/ionic-app-scripts/compare/v1.1.2...v1.1.3) (2017-02-17)
+
+
+### Bug Fixes
+
+* **config:** Setting readConfigJson constant wrong ([#761](https://github.com/driftyco/ionic-app-scripts/issues/761)) ([64bc17f](https://github.com/driftyco/ionic-app-scripts/commit/64bc17f))
+* **source-maps:** source map must correspond to .js file name with a .map at the end ([debd88b](https://github.com/driftyco/ionic-app-scripts/commit/debd88b))
+
+
+
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/driftyco/ionic-app-scripts/compare/v1.1.1...v1.1.2) (2017-02-16)
+
+
+### Bug Fixes
+
+* **deep-links:** handle configs with internal arrays ([a7df816](https://github.com/driftyco/ionic-app-scripts/commit/a7df816))
+* **deep-links:** only provide deep links to webpack that contain the import used in code and the abs ([fae4862](https://github.com/driftyco/ionic-app-scripts/commit/fae4862))
+* **optimizations:** remove the js file created by the optimizations bundling pass ([c0bb3f4](https://github.com/driftyco/ionic-app-scripts/commit/c0bb3f4))
+
+
+
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/driftyco/ionic-app-scripts/compare/v1.1.0...v1.1.1) (2017-02-15)
+
+
+### Bug Fixes
+
+* **config:** node_modules directory should not be configurable (users were finding it confusing) ([1f58aaa](https://github.com/driftyco/ionic-app-scripts/commit/1f58aaa))
+* **copy:** support overriding config entries with empty objects ([5879a8b](https://github.com/driftyco/ionic-app-scripts/commit/5879a8b))
+* **deeplinks:** make deep link config parsing support 2.x and 3.x deep link config ([1ac7116](https://github.com/driftyco/ionic-app-scripts/commit/1ac7116))
+* **deeplinks:** provide deep-links config to webpack as needed vs via the constructor ([a735e96](https://github.com/driftyco/ionic-app-scripts/commit/a735e96))
+* **http-server:** drive reading ionic.config.json based on config value ([e2d0d83](https://github.com/driftyco/ionic-app-scripts/commit/e2d0d83))
+* **optimizations:** throw error when ionic-angular index file isn't found ([6437005](https://github.com/driftyco/ionic-app-scripts/commit/6437005))
+* **transpile:** get tsconfig.json location from config value ([79b0eeb](https://github.com/driftyco/ionic-app-scripts/commit/79b0eeb))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/driftyco/ionic-app-scripts/compare/v1.0.1...v1.1.0) (2017-02-11)
 
