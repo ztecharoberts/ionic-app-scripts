@@ -252,7 +252,7 @@ export function convertDeepLinkConfigEntriesToString(entries: DeepLinkConfigEntr
 
 export function convertDeepLinkEntryToJsObjectString(entry: DeepLinkConfigEntry) {
   const defaultHistoryWithQuotes = entry.defaultHistory.map(defaultHistoryEntry => `'${defaultHistoryEntry}'`);
-  const segmentString = entry.segment && entry.segment.length ? `'${entry.segment}'` : null;
+  const segmentString = entry.segment ? `'${entry.segment}'` : null;
   return `{ loadChildren: '${entry.userlandModulePath}${LOAD_CHILDREN_SEPARATOR}${entry.className}', name: '${entry.name}', segment: ${segmentString}, priority: '${entry.priority}', defaultHistory: [${defaultHistoryWithQuotes.join(', ')}] }`;
 }
 
